@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-app-bar app
-               color="cyan lighten-3"
+    <v-app-bar app color="cyan lighten-3"
+               dense
                fixed>
       <v-toolbar-title v-text="title"/>
       <v-spacer/>
