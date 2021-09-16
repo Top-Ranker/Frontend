@@ -1,52 +1,6 @@
 <template>
-  <v-app>
-    <v-app-bar app color="cyan lighten-3"
-               dense
-               fixed>
-      <v-toolbar-title v-text="title"/>
-      <v-spacer/>
-      <v-btn class="mx-3 no-background-hover"
-             color="cyan lighten-3"
-             depressed raised>
-        Dashboard
-      </v-btn>
-
-      <v-btn class="mx-3 no-background-hover"
-             color="cyan lighten-3"
-             depressed raised>
-        Problems
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Contests
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Leaderboard
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Contribute
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Statistics
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Discuss
-      </v-btn>
-      <v-btn class="mx-3"
-             color="cyan lighten-3"
-             depressed raised>
-        Sign In
-      </v-btn>
-    </v-app-bar>
+  <v-app >
+    <AppBar/>
     <!--    <v-navigation-drawer
           v-model="drawer"
           :mini-variant="miniVariant"
@@ -101,7 +55,6 @@
           <span>&copy; {{ new Date().getFullYear() }}</span>
         </v-footer>-->
     <v-main>
-      <!--      <Button button-name="Test" class="pa-12"></Button>-->
       <Nuxt/>
     </v-main>
 
@@ -113,8 +66,9 @@
 import Button from "../components/Partials/Button";
 */
 
+import AppBar from "../components/Partials/AppBar";
 export default {
-  components: {},
+  components: {AppBar},
   data() {
     return {
       clipped: false,

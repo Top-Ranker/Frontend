@@ -1,6 +1,5 @@
 <template>
     <div class="Leaderboard">
-        <pre v-text="$attrs"/>
     </div>
 </template>
 
