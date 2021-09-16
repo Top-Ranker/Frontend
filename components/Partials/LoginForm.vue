@@ -18,7 +18,7 @@
           </v-col>
           <v-spacer></v-spacer>
           <v-col align-end class="d-flex" cols="12" sm="3" xsm="12">
-            <v-btn block color="success" x-large @click="validate"> Login</v-btn>
+            <v-btn block color="success" @click="validate"> Login</v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -28,24 +28,14 @@
 
 <script>
 export default {
-  name: "Login",
+  name: "LoginForm",
   data() {
     return {
       user:{
         username: "",
         password: "",
       },
-      passShow:true,
-      verify: "",
-      loginEmail: "",
-      loginEmailRules: [
-        v => !!v || "Required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-      ],
-      emailRules: [
-        v => !!v || "Required",
-        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
-      ],
+      passShow:false,
       rules: {
         required: value => !!value || "Required.",
         min: v => (v && v.length >= 8) || "Min 8 characters"

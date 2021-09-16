@@ -21,11 +21,12 @@
 </template>
 
 <script>
-import Login from "./Partials/Login";
+import Login from "./Partials/LoginForm";
+import Signup from "./Partials/SignupForm";
 
 export default {
   name: "LoginSignup",
-  components: {Login},
+  components: {Login,Signup},
   data() {
     return {
       tab: null
