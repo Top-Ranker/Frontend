@@ -4,7 +4,7 @@
       <v-form ref="login" lazy-validation>
         <v-row>
           <v-col cols="12">
-            <v-text-field v-model="user.username" label="Username" solo :rules="[rules.required]"></v-text-field>
+            <v-text-field v-model="user.username" :rules="[rules.required]" label="Username" solo></v-text-field>
           </v-col>
           <v-col cols="12">
             <v-text-field v-model='user.password'
@@ -14,12 +14,15 @@
                           counter hint='At least 8 characters' label="Password" placeholder='Password' solo
                           @click:append='passShow=!passShow'></v-text-field>
           </v-col>
-          <v-col class="d-flex" cols="12" sm="6" xsm="12">
+          <v-row>
+          <v-col class="d-flex" cols="3" >
           </v-col>
-          <v-spacer></v-spacer>
-          <v-col align-end class="d-flex" cols="12" sm="3" xsm="12">
+          <v-col class="d-flex" cols="6" >
             <v-btn block color="success" @click="validate"> Login</v-btn>
           </v-col>
+          <v-col class="d-flex" cols="3">
+          </v-col>
+          </v-row>
         </v-row>
       </v-form>
     </v-card-text>
@@ -31,11 +34,11 @@ export default {
   name: "LoginForm",
   data() {
     return {
-      user:{
+      user: {
         username: "",
         password: "",
       },
-      passShow:false,
+      passShow: false,
       rules: {
         required: value => !!value || "Required.",
         min: v => (v && v.length >= 8) || "Min 8 characters"

@@ -33,11 +33,16 @@
                           :type="passShow ? 'text' : 'password'" counter label="Confirm Password"
                           solo @click:append="passShow = !passShow"></v-text-field>
           </v-col>
-          <v-spacer></v-spacer>
-          <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-            <v-btn block color="success" x-large @click="validate">Register</v-btn>
-          </v-col>
         </v-row>
+        <v-row>
+            <v-col class="d-flex" cols="3">
+            </v-col>
+            <v-col class="d-flex" cols="6">
+              <v-btn block color="success" @click="validate">Register</v-btn>
+            </v-col>
+            <v-col class="d-flex" cols="3">
+            </v-col>
+          </v-row>
       </v-form>
     </v-card-text>
   </v-card>

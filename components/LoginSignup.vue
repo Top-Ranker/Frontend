@@ -1,8 +1,8 @@
 <template>
   <v-container>
-    <v-tabs v-model="tab">
-      <v-tab>Login</v-tab>
-      <v-tab>Signup</v-tab>
+    <v-tabs v-model="tab" centered>
+      <v-tab class="font-weight-bold">Login</v-tab>
+      <v-tab class="font-weight-bold">Signup</v-tab>
       <v-tabs-slider color="cyan lighten-2"></v-tabs-slider>
     </v-tabs>
     <v-tabs-items v-model="tab">

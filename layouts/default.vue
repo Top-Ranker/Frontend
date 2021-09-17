@@ -1,5 +1,5 @@
 <template>
-  <v-app >
+  <v-app>
     <AppBar/>
     <!--    <v-navigation-drawer
           v-model="drawer"
@@ -57,7 +57,7 @@
     <v-main>
       <Nuxt/>
     </v-main>
-
+    <Footer/>
   </v-app>
 </template>
 
@@ -65,10 +65,10 @@
 /*
 import Button from "../components/Partials/Button";
 */
-
+import Footer from "../components/Partials/Footer";
 import AppBar from "../components/Partials/AppBar";
 export default {
-  components: {AppBar},
+  components: {AppBar,Footer},
   data() {
     return {
       clipped: false,

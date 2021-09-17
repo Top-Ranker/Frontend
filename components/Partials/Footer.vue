@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute padless color="cyan lighten-4" class="bg-white border-top border-3">
+  <v-footer padless color="cyan lighten-4" class="pt-4 mt-12">
     <div class="mx-auto mt-5 mb-3">
       <div class="row mx-0 px-0">
         <div class="col">
