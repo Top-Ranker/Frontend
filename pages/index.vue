@@ -3,15 +3,11 @@
     <v-container>
       <v-row>
         <v-col cols="6">
-          <OngoingContestCard/>
+          <OngoingContestCard class="mb-5"/>
+            <StatisticsCard></StatisticsCard>
         </v-col>
         <v-col cols="6">
-          <LoginSignup ></LoginSignup>
-        </v-col>
-        <v-col >
-          <v-container>
-          <StatisticsCard></StatisticsCard>
-          </v-container>
+          <LoginSignup></LoginSignup>
         </v-col>
       </v-row>
     </v-container>
