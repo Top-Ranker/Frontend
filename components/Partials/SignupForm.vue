@@ -4,22 +4,44 @@
       <v-form ref="signup" v-model="valid" lazy-validation>
         <v-row>
           <v-col cols="12" md="6" sm="6">
-            <v-text-field v-model="firstName" :rules="[rules.required]" label="First Name" maxlength="20" required
+            <v-text-field v-model="user.firstName" :rules="[rules.required]" label="First Name" maxlength="20" required
                           solo></v-text-field>
           </v-col>
           <v-col cols="12" md="6" sm="6">
-            <v-text-field v-model="lastName" :rules="[rules.required]" label="Last Name" maxlength="20" required
+            <v-text-field v-model="user.lastName" :rules="[rules.required]" label="Last Name" maxlength="20" required
                           solo></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="username" :rules="[rules.required]" label="Username" maxlength="20" required
+            <v-text-field v-model="user.username" :rules="[rules.required]" label="Username" maxlength="20" required
                           solo></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" required solo></v-text-field>
+            <v-select
+              v-model='age'
+              :items='age'
+              :menu-props='{ maxHeight:200 }'
+              :rules='[rules.required]'
+              class='lang-choices'
+              color='black'
+              label='Age' outlined  solo>
+            </v-select>
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model='password'
+            <v-text-field v-model="user.email" :rules="[rules.required]" label="E-mail" required solo></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="user.field" :rules="[rules.required]" label="Field" required solo></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="user.profession" :rules="[rules.required]" label="Profession" required solo></v-text-field>
+          </v-col>
+          <v-col cols="12">
+            <v-text-field v-model="user.university" :rules="[rules.required]" label="University" required solo></v-text-field>
+          </v-col>
+
+
+          <v-col cols="12">
+            <v-text-field v-model='user.password'
                           :append-icon="passShow ? 'mdi-eye' : 'mdi-eye-off'"
                           :rules='[rules.required,rules.min]'
                           :type="passShow ? 'text':'password'"
@@ -38,7 +60,7 @@
             <v-col class="d-flex" cols="3">
             </v-col>
             <v-col class="d-flex" cols="6">
-              <v-btn block color="success" @click="validate">Register</v-btn>
+              <v-btn block color="teal accent-3" @click="validate">Register</v-btn>
             </v-col>
             <v-col class="d-flex" cols="3">
             </v-col>
@@ -54,11 +76,17 @@ export default {
   data() {
     return {
       valid: true,
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
+      user:{
+        firstName: "",
+        lastName: "",
+        username: "",
+        email: "",
+        password: "",
+        country:"",
+        field:"",
+        profession:"",
+        university:"",
+      },
       passwordConfirm: "",
       passShow: false,
       emailRules: [
@@ -68,12 +96,13 @@ export default {
       rules: {
         required: value => !!value || "Required.",
         min: v => (v && v.length >= 8) || "Min 8 characters"
-      }
+      },
+      age:  Array(45).fill(30).map((e,i)=>i+1)
     }
   },
   computed: {
     passwordMatch() {
-      return () => this.password === this.passwordConfirm || "Password must match";
+      return () => this.user.password === this.passwordConfirm || "Password must match";
     }
   },
 

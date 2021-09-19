@@ -4,6 +4,7 @@
       <v-row>
         <v-col cols="6">
           <OngoingContestCard class="mb-5"/>
+          <TopRankTables class="mb-5"/>
             <StatisticsCard></StatisticsCard>
         </v-col>
         <v-col cols="6">
@@ -18,14 +19,12 @@
 import LoginSignup from "../components/LoginSignup";
 import OngoingContestCard from "../components/Partials/OngoingContestCard";
 import StatisticsCard from "../components/Partials/StatisticsCard";
+import TopRankTables from "../components/Partials/TopRankTables";
 
 export default {
   name: "Index",
-  components: {StatisticsCard, OngoingContestCard, LoginSignup},
+  components: {TopRankTables, StatisticsCard, OngoingContestCard, LoginSignup},
   methods: {
-    something(event) {
-      console.log('hahah',event)
-    }
   },
 }
 </script>
