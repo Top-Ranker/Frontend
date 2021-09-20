@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-b" hover >
+  <v-card class="rounded-b" hover>
     <v-card-title class="font-italic text-subtitle-1 font-weight-medium">Ongoing Contests</v-card-title>
     <v-card-text>
       <v-row no-gutters>
@@ -90,6 +90,7 @@ a {
   text-decoration: none;
   color: rgba(75, 75, 75, 0.96);
 }
+
 a:hover {
   color: #1d8b9b;
 }

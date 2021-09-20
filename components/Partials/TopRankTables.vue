@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-b" hover>
-    <v-card-title class="font-italic text-subtitle-1 font-weight-medium">Top Rankings</v-card-title>
-    <v-simple-table class="mb-1 ml-12" style="width: 80%">
+    <v-card-title class="font-italic text-subtitle-1 font-weight-medium ">Top Rankings</v-card-title>
+    <v-simple-table class="ml-12" style="width: 80%">
       <template #default>
         <tbody>
         <tr>
@@ -19,7 +19,7 @@
       </template>
     </v-simple-table>
     <v-card-title class="font-italic text-subtitle-1 font-weight-medium">Top Contributor</v-card-title>
-    <v-simple-table class="pb-3 ml-12" dense style="width: 80%">
+    <v-simple-table class="pb-6 ml-12" dense style="width: 80%">
       <template #default>
         <tbody>
         <tr>

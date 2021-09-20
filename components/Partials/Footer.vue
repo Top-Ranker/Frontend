@@ -1,16 +1,16 @@
 <template>
-  <v-footer padless color="cyan lighten-4" class="pt-4 mt-12">
+  <v-footer class="pt-4 mt-12" color="cyan lighten-4" padless>
     <div class="mx-auto mt-5 mb-3">
       <div class="row mx-0 px-0">
         <div class="col">
           <div class="mb-3 text-h4">Top Ranker</div>
-          <v-btn class="mx-2 " icon elevation="5">
+          <v-btn class="mx-2 " elevation="5" icon>
             <v-icon>mdi-facebook</v-icon>
           </v-btn>
-          <v-btn class="mx-2 " icon elevation="5">
+          <v-btn class="mx-2 " elevation="5" icon>
             <v-icon>mdi-linkedin</v-icon>
           </v-btn>
-          <v-btn class="mx-2 " icon elevation="5">
+          <v-btn class="mx-2 " elevation="5" icon>
             <v-icon>mdi-twitter</v-icon>
           </v-btn>
         </div>
@@ -59,11 +59,12 @@ export default {
 </script>
 
 <style scoped>
-a.smaller-font-size.d-block{
+a.smaller-font-size.d-block {
   color: black;
   text-decoration: none;
 }
-a.smaller-font-size.d-block:hover{
+
+a.smaller-font-size.d-block:hover {
   color: #57a0a9;
 }
 </style>
