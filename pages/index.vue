@@ -5,7 +5,7 @@
         <v-col cols="6">
           <OngoingContestCard class="mb-5"/>
           <TopRankTables class="mb-5"/>
-            <StatisticsCard></StatisticsCard>
+          <StatisticsCard></StatisticsCard>
         </v-col>
         <v-col cols="6">
           <LoginSignup></LoginSignup>
@@ -24,8 +24,11 @@ import TopRankTables from "../components/Partials/TopRankTables";
 export default {
   name: "Index",
   components: {TopRankTables, StatisticsCard, OngoingContestCard, LoginSignup},
-  methods: {
+  created() {
+    console.log(this.$auth)
   },
+  methods: {},
+
 }
 </script>
 

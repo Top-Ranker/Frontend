@@ -41,15 +41,21 @@ export default {
       passShow: false,
       rules: {
         required: value => !!value || "Required.",
-        min: v => (v && v.length >= 8) || "Min 8 characters"
+        min: v => (v && v.length >= 3) || "Min 8 characters"
       }
     }
   },
   computed: {},
   methods: {
-    validate() {
+    async validate() {
       if (this.$refs.login.validate()) {
         // submit form to server/API here...
+        try {
+          const response = await this.$auth.loginWith('local', { data: this.user })
+          console.log(response)
+        } catch (err) {
+          console.log(err)
+        }
       }
     },
   }
