@@ -30,7 +30,7 @@ export default {
   auth: {
     redirect: {
       login: '/login',
-      logout: '/login',
+      logout: '/',
       callback: '',
       home: '/',
     },

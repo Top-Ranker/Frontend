@@ -1,5 +1,5 @@
 <template>
-  <v-card class="px-4">
+  <v-card class="px-12" flat>
     <v-card-text>
       <v-form ref="login" lazy-validation>
         <v-row>
@@ -15,13 +15,11 @@
                           @click:append='passShow=!passShow'></v-text-field>
           </v-col>
           <v-row>
-          <v-col class="d-flex" cols="3" >
-          </v-col>
-          <v-col class="d-flex" cols="6" >
-            <v-btn block color="success" @click="validate"> Login</v-btn>
-          </v-col>
-          <v-col class="d-flex" cols="3">
-          </v-col>
+            <v-col>
+              <div class="text-center">
+                <Button :style-object="style" name="Login" @click="validate"/>
+              </div>
+            </v-col>
           </v-row>
         </v-row>
       </v-form>
@@ -30,13 +28,23 @@
 </template>
 
 <script>
+import Button from "./Button";
+
 export default {
   name: "LoginForm",
+  components: {Button},
   data() {
     return {
       user: {
         username: "",
         password: "",
+      },
+      style: {
+        "--color": '#000',
+        "--pady": '15px',
+        "--padx": '45px',
+        "--hover-background": 'black',
+        "--hover-color": 'white',
       },
       passShow: false,
       rules: {
@@ -51,7 +59,7 @@ export default {
       if (this.$refs.login.validate()) {
         // submit form to server/API here...
         try {
-          const response = await this.$auth.loginWith('local', { data: this.user })
+          const response = await this.$auth.loginWith('local', {data: this.user})
           console.log(response)
         } catch (err) {
           console.log(err)

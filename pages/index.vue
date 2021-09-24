@@ -1,16 +1,24 @@
 <template>
   <div class="home">
     <v-container>
-      <v-row>
+      <v-row v-if="!$auth.loggedIn">
+        <v-col cols="6">
+          <OngoingContestCard class="mb-5"/>
+          <TopRankTables class="mb-5"/>
+          <StatisticsCard></StatisticsCard>
+        </v-col>
+        <v-col cols="6" md="6">
+            <LoginSignup></LoginSignup>
+        </v-col>
+      </v-row>
+      <v-row v-else>
         <v-col cols="12">
           <OngoingContestCard class="mb-5"/>
           <TopRankTables class="mb-5"/>
           <StatisticsCard></StatisticsCard>
         </v-col>
-        <v-col v-if="!$auth.loggedIn" cols="12" md="6">
-          <LoginSignup></LoginSignup>
-        </v-col>
       </v-row>
+
     </v-container>
   </div>
 </template>

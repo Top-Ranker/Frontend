@@ -4,52 +4,52 @@
              fixed>
     <v-toolbar-title v-text="title"/>
     <v-spacer/>
-    <v-btn class="mx-3 no-background-hover"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Dashboard
     </v-btn>
 
-    <v-btn class="mx-3 no-background-hover"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Problems
     </v-btn>
-    <v-btn class="mx-3"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Contests
     </v-btn>
-    <v-btn class="mx-3"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Leaderboard
     </v-btn>
-    <v-btn class="mx-3"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Contribute
     </v-btn>
-    <v-btn class="mx-3"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Statistics
     </v-btn>
-    <v-btn class="mx-3"
+    <v-btn class="mx-1"
            color="cyan lighten-3"
            depressed>
       Discuss
     </v-btn>
     <v-btn v-if="!$auth.loggedIn"
-           class="mx-3"
-           color="cyan lighten-3" depressed>
-      Sign In
+           class="mx-1"
+           color="cyan lighten-3" depressed @click="$auth.redirect('login')">
+      Login
     </v-btn>
     <div v-else>
-      <v-btn class="mx-3" color="cyan lighten-3" depressed raised>
+      <v-btn class="mx-1" color="cyan lighten-3" depressed raised>
         Welcome {{ $auth.user.username }}
       </v-btn>
-      <v-btn class="mx-3" color="cyan lighten-3" depressed raised @click="$auth.logout()">
+      <v-btn class="mx-1" color="cyan lighten-3" depressed raised @click="$auth.logout()">
         Logout
       </v-btn>
     </div>

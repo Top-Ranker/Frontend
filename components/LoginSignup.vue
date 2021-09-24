@@ -13,7 +13,8 @@
 
       <v-tab-item>
         <!-- Signup       -->
-        <Signup></Signup>
+        <Signup class="signupform"></Signup>
+
       </v-tab-item>
     </v-tabs-items>
   </v-container>
@@ -26,15 +27,19 @@ import Signup from "./Partials/SignupForm";
 
 export default {
   name: "LoginSignup",
-  components: {Login,Signup},
+  components: {Login, Signup},
   data() {
     return {
-      tab: null
+      tab: null,
     }
   },
 }
 </script>
 
 <style scoped>
-
+.signupform {
+  height: 65vh;
+  overflow: -moz-scrollbars-none;
+  overflow-y: auto;
+}
 </style>

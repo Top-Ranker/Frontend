@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card flat>
     <v-card-text>
       <v-form ref="signup" v-model="valid" lazy-validation>
         <v-row>
@@ -23,7 +23,7 @@
               :rules='[rules.required]'
               class='lang-choices'
               color='black'
-              label='Age' outlined  solo>
+              label='Age' outlined solo>
             </v-select>
           </v-col>
           <v-col cols="12">
@@ -33,10 +33,12 @@
             <v-text-field v-model="user.field" :rules="[rules.required]" label="Field" required solo></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="user.profession" :rules="[rules.required]" label="Profession" required solo></v-text-field>
+            <v-text-field v-model="user.profession" :rules="[rules.required]" label="Profession" required
+                          solo></v-text-field>
           </v-col>
           <v-col cols="12">
-            <v-text-field v-model="user.university" :rules="[rules.required]" label="University" required solo></v-text-field>
+            <v-text-field v-model="user.university" :rules="[rules.required]" label="University" required
+                          solo></v-text-field>
           </v-col>
 
 
@@ -55,37 +57,43 @@
                           :type="passShow ? 'text' : 'password'" counter label="Confirm Password"
                           solo @click:append="passShow = !passShow"></v-text-field>
           </v-col>
+          <v-col>
+            <div class="text-center">
+              <Button :style-object="style" name="Signup" @click="validate"/>
+            </div>
+          </v-col>
         </v-row>
-        <v-row>
-            <v-col class="d-flex" cols="3">
-            </v-col>
-            <v-col class="d-flex" cols="6">
-              <v-btn block color="teal accent-3" @click="validate">Register</v-btn>
-            </v-col>
-            <v-col class="d-flex" cols="3">
-            </v-col>
-          </v-row>
       </v-form>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
+import Button from "./Button";
+
 export default {
   name: "SignupForm",
+  components: {Button},
   data() {
     return {
+      style: {
+        "--color": '#000',
+        "--pady": '15px',
+        "--padx": '45px',
+        "--hover-background": 'black',
+        "--hover-color": 'white',
+      },
       valid: true,
-      user:{
+      user: {
         firstName: "",
         lastName: "",
         username: "",
         email: "",
         password: "",
-        country:"",
-        field:"",
-        profession:"",
-        university:"",
+        country: "",
+        field: "",
+        profession: "",
+        university: "",
       },
       passwordConfirm: "",
       passShow: false,
@@ -97,7 +105,8 @@ export default {
         required: value => !!value || "Required.",
         min: v => (v && v.length >= 8) || "Min 8 characters"
       },
-      age:  Array(45).fill(30).map((e,i)=>i+1)
+      age: Array(45).fill(30).map((e, i) => i + 1),
+
     }
   },
   computed: {
