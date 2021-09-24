@@ -36,9 +36,13 @@ export default {
     },
     strategies: {
       local: {
+        user: {
+          property: '', // <--- Default "user"
+          autoFetch: true
+        },
         endpoints: {
           login: {
-            url: '/api/gettoken/',
+            url: '/api/gettoken',
             method: 'post',
           },
           logout: {
@@ -48,21 +52,10 @@ export default {
           user: {
             url: '/api/user',
             method: 'get',
-            propertyName: false // <--- Default "user"
+            propertyName: ''  // <--- Default "user"
           },
           tokenRequired: true
         },
-        token: {
-          type: 'Token',
-          property: 'token',
-          name: 'Authorization',
-          maxAge: 1800,
-          global: true,
-          required: true,
-          prefix: '_token.',
-          expirationPrefix: '_token_expiration.'
-        }
-
       }
     }
   },
@@ -87,7 +80,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'http://localhost:4000', // Used as fallback if no runtime config is provided
+    baseURL: 'http://localhost:8000', // Used as fallback if no runtime config is provided
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {

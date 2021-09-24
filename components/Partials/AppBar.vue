@@ -6,45 +6,53 @@
     <v-spacer/>
     <v-btn class="mx-3 no-background-hover"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Dashboard
     </v-btn>
 
     <v-btn class="mx-3 no-background-hover"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Problems
     </v-btn>
     <v-btn class="mx-3"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Contests
     </v-btn>
     <v-btn class="mx-3"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Leaderboard
     </v-btn>
     <v-btn class="mx-3"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Contribute
     </v-btn>
     <v-btn class="mx-3"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Statistics
     </v-btn>
     <v-btn class="mx-3"
            color="cyan lighten-3"
-           depressed raised>
+           depressed>
       Discuss
     </v-btn>
-    <v-btn class="mx-3"
-           color="cyan lighten-3"
-           depressed raised>
+    <v-btn v-if="!$auth.loggedIn"
+           class="mx-3"
+           color="cyan lighten-3" depressed>
       Sign In
     </v-btn>
+    <div v-else>
+      <v-btn class="mx-3" color="cyan lighten-3" depressed raised>
+        Welcome {{ $auth.user.username }}
+      </v-btn>
+      <v-btn class="mx-3" color="cyan lighten-3" depressed raised @click="$auth.logout()">
+        Logout
+      </v-btn>
+    </div>
   </v-app-bar>
 </template>
 

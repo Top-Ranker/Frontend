@@ -2,12 +2,12 @@
   <div class="home">
     <v-container>
       <v-row>
-        <v-col cols="6">
+        <v-col cols="12">
           <OngoingContestCard class="mb-5"/>
           <TopRankTables class="mb-5"/>
           <StatisticsCard></StatisticsCard>
         </v-col>
-        <v-col cols="6">
+        <v-col v-if="!$auth.loggedIn" cols="12" md="6">
           <LoginSignup></LoginSignup>
         </v-col>
       </v-row>
@@ -25,7 +25,7 @@ export default {
   name: "Index",
   components: {TopRankTables, StatisticsCard, OngoingContestCard, LoginSignup},
   created() {
-    console.log(this.$auth)
+    console.log(this.$auth.loggedIn)
   },
   methods: {},
 
