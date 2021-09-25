@@ -16,7 +16,8 @@
         class="elevation-1"
         hide-default-footer
         @page-count="pageCount = $event">
-        <template #body="{ items }">
+        <template v-if="$auth.loggedIn"
+                  #body="{ items }">
           <tbody>
           <tr
             v-for="item in items"
@@ -35,30 +36,35 @@
             <td>
           <tr>
             <div v-for="dim in item.dimension" :key="dim.dimension" class="mb-1 font-weight-light">
-              <td>for D={{ dim.dimension }}</td>
+              <td>
+                <v-row class="mt-1 justify-space-around">
+                  <v-col class="mt-1" cols="2">for D={{ dim.dimension }}</v-col>
+                  <v-col cols="7">
+                    <v-text-field v-model="test" dense flat outlined solo/>
+                  </v-col>
+                  <v-col class="mt-3" cols="3">
+                    <!--                    <Button :style-object="style" name="SOLVE!!"></Button>-->
+                    <v-btn class="test" elevation="1" outlined small solo>Solve!</v-btn>
+                  </v-col>
+                </v-row>
+              </td>
             </div>
           </tr>
           </td>
           <td>
-            <tr>
-              <div v-for="dim in item.dimension" :key="dim.dimension" class="mb-1 font-weight-light">
-                <td>{{ dim.participationD }}</td>
-              </div>
-            </tr>
+            <div v-for="dim in item.dimension" :key="dim.dimension"
+                 class="mb-1 font-weight-light">
+              <p class="text-center mr-6">
+                35/{{ dim.participationD }}
+                <br>
+                view all my submissions
+              </p>
+            </div>
           </td>
-          <td>{{ item.participationAll }}<br>
-            <span>
-              <nuxt-link to="/"> View all rankers of the problem</nuxt-link>
-
-            </span>
+          <td class="text-center">{{ item.participationAll }}<br>
+            <nuxt-link to="/"> View all rankers of the problem</nuxt-link>
           </td>
-          <td>
-            <Button :style-object="style"
-                    name="Solve!!"
-                    @click="$router.push('/login')"/>
-          </td>
-          </tr>
-          </tbody>
+          </tr></tbody>
         </template>
       </v-data-table>
     </v-card>
@@ -66,14 +72,15 @@
 </template>
 
 <script>
-import Button from "./Partials/Button";
+//import Button from "./Partials/Button";
 
 export default {
-  name: "ProblemsTable",
-  components: {Button},
+  name: "ProblemsTableWithLogin",
+  /*  components: {Button},*/
   data() {
     return {
       page: 1,
+      test: '',
       pageCount: 2,
       itemsPerPage: 15,
       style: {
@@ -91,13 +98,13 @@ export default {
         "--hover-color": 'black',
       },
       headers: [
-        {text: 'Problem #Id', align: 'start', sortable: true, value: 'id', width: '8%'},
-        {text: 'Problem Name', value: 'name', width: '13%'},
-        {text: 'Difficulty', value: 'difficulty', width: '7%'},
-        {text: 'Country', sortable: false, value: 'country', width: '4%'},
-        {text: 'Owner', sortable: false, value: 'owner', width: '12%'},
-        {text: 'Problem Dimensions ', sortable: false, align: 'start', value: 'participationAll', width: '10%'},
-        {text: 'Total Participations (Dimension wise)', sortable: false, value: 'participationAll', width: '10%'},
+        {text: 'Problem #Id', align: 'start', sortable: true, value: 'id', width: '4%'},
+        {text: 'Problem Name', value: 'name', width: '8%'},
+        {text: 'Difficulty', value: 'difficulty', width: '5%'},
+        {text: 'Country', sortable: false, value: 'country', width: '5%'},
+        {text: 'Owner', sortable: false, value: 'owner', width: '8%'},
+        {text: 'Submit Solution', sortable: false, align: 'start', value: 'participationAll'},
+        {text: 'My Ranking (Problem Dimention Wise)', sortable: false, value: 'participationAll'},
         {text: 'Total Participations (Problem Wise)', sortable: false, value: 'participationAll'},
 
       ],
@@ -109,6 +116,7 @@ export default {
     }
   },
   methods: {},
+
 }
 </script>
 
@@ -118,5 +126,11 @@ export default {
   text-decoration: underline;
   text-decoration-color: black;
   font-weight: bolder;
+
+}
+
+.test:hover {
+  color: white;
+  background-color: black;
 }
 </style>

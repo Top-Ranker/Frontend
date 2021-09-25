@@ -12,7 +12,7 @@
 
     <v-btn class="mx-1"
            color="cyan lighten-3"
-           depressed>
+           depressed to="/problems">
       Problems
     </v-btn>
     <v-btn class="mx-1"

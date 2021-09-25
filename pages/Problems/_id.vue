@@ -1,20 +1,36 @@
 <template>
-<div>
-  adsads {{problemId}}
-</div>
+  <div>
+    {{ problem.description }}
+
+  </div>
 </template>
 
 <script>
 export default {
   name: "Id",
 
-  asyncData({params}) {
-    const problemId = params.id // When calling /abc the slug will be "abc"
-    return {problemId}
+  asyncData({params, $axios}) {
+    // When calling /abc the slug will be "abc"
+    //Replaced by Actual route to get problem with id
+    /*const problem = $axios.get('/problem/' + params.id)
+    return {problem: problem.data}*/
+
+    //TEMP
+    return {problemId: params.id}
+  },
+  data() {
+    return {
+      problem: {}
+    }
+  },
+  mounted() {
+    this.problem = this.$store.getters.getProblemwithId(Number(this.problemId))
+    this.problem.description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
+      " Aliquid, aperiam cupiditate dicta, ducimus, eius eum fugit iusto nam nesciunt porro " +
+      "quisquam repellendus sequi voluptates? Doloremque eius minus quae sequi tempore?"
   }
 }
 </script>
 
 <style scoped>
-
 </style>

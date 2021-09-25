@@ -116,9 +116,15 @@ export default {
   },
 
   methods: {
-    validate() {
+    async validate() {
       if (this.$refs.signup.validate()) {
         // submit form to server/API here...
+        try {
+          await this.$axios.post('http://localhost:8000/api/auth', this.user)
+        } catch (err) {
+          console.log(err)
+        }
+        this.$router.push('login')
       }
     },
   }

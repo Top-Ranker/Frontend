@@ -1,37 +1,36 @@
 <template>
   <v-container>
     <div class="text-center text-h5 font-weight-medium">Problem Set</div>
-    <ProblemsTable/>
+    <ProblemsTableWithLogin v-if="$auth.loggedIn"></ProblemsTableWithLogin>
+    <ProblemsTable v-else/>
   </v-container>
 </template>
 
 <script>
 import ProblemsTable from "../../components/ProblemsTable";
+import ProblemsTableWithLogin from "../../components/ProblemsTableWithLogin";
 
 export default {
   name: 'Problems',
-  components: {ProblemsTable},
+  components: {ProblemsTableWithLogin, ProblemsTable},
   data() {
     return {
       page: 1,
     }
   },
-  watch: {
-    page(newValue, oldValue) {
-      console.log(newValue, oldValue)
-    }
-  },
+  watch: {},
   created() {
   },
 };
 </script>
 
 <style>
-a{
+.nuxt-link-active {
   text-decoration: none;
   color: black !important;
 }
-a:hover {
+
+.nuxt-link-active:hover {
   color: #1d8b9b !important;
 }
 </style>

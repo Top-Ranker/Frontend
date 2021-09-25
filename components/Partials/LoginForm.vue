@@ -59,8 +59,7 @@ export default {
       if (this.$refs.login.validate()) {
         // submit form to server/API here...
         try {
-          const response = await this.$auth.loginWith('local', {data: this.user})
-          console.log(response)
+          await this.$auth.loginWith('local', {data: this.user})
         } catch (err) {
           console.log(err)
         }
