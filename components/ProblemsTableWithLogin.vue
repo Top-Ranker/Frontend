@@ -23,10 +23,10 @@
             v-for="item in items"
             :key="item.id">
             <td>
-              <nuxt-link to="/"> {{ item.id }}</nuxt-link>
+              <nuxt-link :to="`/problems/${item.id}`"> {{ item.id }}</nuxt-link>
             </td>
             <td>
-              <nuxt-link to="/"> {{ item.name }}</nuxt-link>
+              <nuxt-link :to="`/problems/${item.id}`"> {{ item.name }}</nuxt-link>
             </td>
             <td>{{ item.difficulty }}</td>
             <td>{{ item.country }}</td>

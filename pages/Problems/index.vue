@@ -25,12 +25,13 @@ export default {
 </script>
 
 <style>
-.nuxt-link-active {
+
+a {
   text-decoration: none;
   color: black !important;
 }
 
-.nuxt-link-active:hover {
+a:hover {
   color: #1d8b9b !important;
 }
 </style>

@@ -2211,7 +2211,7 @@ export const getters = {
     return state.allProblems
   },
   //_______Temp Getter_______
-  getProblemwithId: (state) => (problemId) => {
+  getProblem: (state) => (problemId) => {
     return state.allProblems.find(problem => problem.id === problemId)
   }
 }
@@ -2232,6 +2232,7 @@ export const mutations = {}
   "difficulty": "Easy",
   "country": "India",
   "owner": "Owner Name 0",
+  "type": "Multi Model, Constraint, Multi Dimensional",
   "dimension": [
   {
     "dimension": 20,
