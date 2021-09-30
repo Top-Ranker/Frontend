@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card class="mt-6 elevation-0 pa-3">
-      <h1 class="text-h3 font-weight-medium mb-3"> {{ problem.name }}</h1>
+      <h1 class="text-h3 font-weight-regular mb-3"> {{ problem.name }}</h1>
       <v-row>
         <v-col md="6" sm="12">
           <v-card class="stats mt-6 ml-4" flat>
@@ -79,7 +79,7 @@
             </v-card-title>
             <v-col>
               <v-select :items="lang" :value="language" color="black" outlined solo style="width:20%"></v-select>
-              <v-btn bottom elevation="4" large outlined> Download</v-btn>
+              <v-btn elevation="4" outlined x-large> Download</v-btn>
             </v-col>
           </v-card>
         </v-col>

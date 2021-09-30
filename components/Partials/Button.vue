@@ -1,13 +1,5 @@
 <template>
-  <div class="button" @click="Click">
-    <a :style="styleObject" >
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-      {{ name }}
-    </a>
-  </div>
+  <button class="custom-btn btn" @click="Click">{{ name }}</button>
 </template>
 
 <script>
@@ -24,6 +16,8 @@ export default {
       default() {
         return {
           "--color": '#000',
+          "--width": '150px',
+          "--height": '45px',
           "--pady": '20px',
           "--padx": '35px',
           "--hover-background": '#000',
@@ -41,107 +35,68 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-
-a {
-  position: relative;
-  display: inline-block;
+.custom-btn {
+  width: var(--width);
+  height: var(--height);
   padding: var(--pady) var(--padx);
   color: var(--color);
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.5s;
-  letter-spacing: 3px;
-  overflow: hidden;
+  border: 2px solid #000;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
 }
 
-a:hover {
+.btn {
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
   background: var(--hover-background);
   color: var(--hover-color);
-  box-shadow: 0 0 5px 3px var(--hover-background);
-  -webkit-box-reflect: below 1px linear-gradient(transparent, var(--hover-background));
 }
 
-a span {
+.btn:before {
   position: absolute;
-  display: block;
-}
-
-a span:nth-child(1) {
-  top: 0;
+  content: '';
+  display: inline-block;
+  top: -180px;
   left: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--hover-background));
-  animation: animate1 1s linear infinite;
-}
-
-@keyframes animate1 {
-  0% {
-    left: -100%;
-  }
-  50%,
-  100% {
-    left: 100%;
-  }
-}
-
-a span:nth-child(2) {
-  top: -100%;
-  right: 0;
-  width: 1px;
+  width: 30px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, var(--hover-background));
-  animation: animate2 1s linear infinite;
-  animation-delay: 0.25s;
+  background-color: #fff;
+  animation: shiny-btn1 3s ease-in-out infinite;
 }
 
-@keyframes animate2 {
+.btn:active {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .3),
+  -4px -4px 6px 0 rgba(116, 125, 136, .2),
+  inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
+  inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+
+@-webkit-keyframes shiny-btn1 {
   0% {
-    top: -100%;
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0;
   }
-  50%,
+  80% {
+    -webkit-transform: scale(0) rotate(45deg);
+    opacity: 0.5;
+  }
+  81% {
+    -webkit-transform: scale(4) rotate(45deg);
+    opacity: 1;
+  }
   100% {
-    top: 100%;
+    -webkit-transform: scale(50) rotate(45deg);
+    opacity: 0;
   }
 }
 
-a span:nth-child(3) {
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(270deg, transparent, var(--hover-background));
-  animation: animate3 1s linear infinite;
-  animation-delay: 0.5s;
-}
 
-@keyframes animate3 {
-  0% {
-    right: -100%;
-  }
-  50%,
-  100% {
-    right: 100%;
-  }
-}
-
-a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, var(--hover-background));
-  animation: animate4 1s linear infinite;
-  animation-delay: 0.75s;
-}
-
-@keyframes animate4 {
-  0% {
-    bottom: -100%;
-  }
-  50%,
-  100% {
-    bottom: 100%;
-  }
-}
 </style>

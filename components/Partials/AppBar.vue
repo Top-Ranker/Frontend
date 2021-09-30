@@ -2,7 +2,9 @@
   <v-app-bar app color="cyan lighten-3"
              dense
              fixed>
-    <v-toolbar-title v-text="title"/>
+    <nuxt-link to="/">
+      <v-toolbar-title v-text="title"/>
+    </nuxt-link>
     <v-spacer/>
     <v-btn class="mx-1"
            color="cyan lighten-3"
@@ -61,14 +63,23 @@ export default {
   name: "AppBar",
   data() {
     return {
-      title: '< Top Ranker LOGO >'
+      title: '$ Top Ranker LOGO'
     }
   },
 }
 </script>
 
-<style scoped>
+<style>
 .no-background-hover::before {
   background-color: transparent !important;
+}
+
+a {
+  text-decoration: none;
+  color: black !important;
+}
+
+a:hover {
+  color: #1d8b9b !important;
 }
 </style>

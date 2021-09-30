@@ -26,12 +26,4 @@ export default {
 
 <style>
 
-a {
-  text-decoration: none;
-  color: black !important;
-}
-
-a:hover {
-  color: #1d8b9b !important;
-}
 </style>

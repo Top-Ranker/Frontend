@@ -17,7 +17,7 @@
           <v-row>
             <v-col>
               <div class="text-center">
-                <Button :style-object="style" name="Login" @click="validate"/>
+                <v-btn name="Login" outlined shaped x-large @click="validate">Login</v-btn>
               </div>
             </v-col>
           </v-row>
@@ -28,23 +28,14 @@
 </template>
 
 <script>
-import Button from "./Button";
 
 export default {
   name: "LoginForm",
-  components: {Button},
   data() {
     return {
       user: {
         username: "",
         password: "",
-      },
-      style: {
-        "--color": '#000',
-        "--pady": '15px',
-        "--padx": '45px',
-        "--hover-background": 'black',
-        "--hover-color": 'white',
       },
       passShow: false,
       rules: {

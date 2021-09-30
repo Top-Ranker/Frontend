@@ -33,30 +33,27 @@
               <nuxt-link style="color: black" to="/">{{ item.owner }}</nuxt-link>
             </td>
             <td>
-          <tr>
-            <div v-for="dim in item.dimension" :key="dim.dimension" class="mb-1 font-weight-light">
-              <td>for D={{ dim.dimension }}</td>
-            </div>
-          </tr>
-          </td>
-          <td>
-            <tr>
               <div v-for="dim in item.dimension" :key="dim.dimension" class="mb-1 font-weight-light">
-                <td>{{ dim.participationD }}</td>
+                <span>for D={{ dim.dimension }}</span>
               </div>
-            </tr>
-          </td>
-          <td>{{ item.participationAll }}<br>
-            <span>
+            </td>
+            <td>
+              <div v-for="dim in item.dimension" :key="dim.dimension" class="mb-1 font-weight-light">
+                <span>{{ dim.participationD }}</span>
+              </div>
+            </td>
+            <td>{{ item.participationAll }}<br>
+              <span>
               <nuxt-link to="/"> View all rankers of the problem</nuxt-link>
 
             </span>
-          </td>
-          <td>
-            <Button :style-object="style"
-                    name="Solve!!"
-                    @click="$router.push('/login')"/>
-          </td>
+            </td>
+            <td>
+              <v-btn outlined
+                     shaped
+                     @click="$router.push('/login')">Solve!
+              </v-btn>
+            </td>
           </tr>
           </tbody>
         </template>
@@ -66,30 +63,13 @@
 </template>
 
 <script>
-import Button from "./Partials/Button";
-
 export default {
   name: "ProblemsTable",
-  components: {Button},
   data() {
     return {
       page: 1,
       pageCount: 2,
       itemsPerPage: 15,
-      style: {
-        "--color": 'black',
-        "--pady": '5px',
-        "--padx": '15px',
-        "--hover-background": 'black',
-        "--hover-color": '#fff',
-      },
-      style2: {
-        "--color": 'black',
-        "--pady": '5px',
-        "--padx": '15px',
-        "--hover-background": 'cyan',
-        "--hover-color": 'black',
-      },
       headers: [
         {text: 'Problem #Id', align: 'start', sortable: true, value: 'id', width: '8%'},
         {text: 'Problem Name', value: 'name', width: '13%'},
