@@ -1140,7 +1140,6 @@ export const mutations = {
   },
   addSolution(state, data) {
     state.allProblems[data.problemId].dimension[data.dimensionIndex].solution = data.solution
-    console.log(state.allProblems[data.problemId].dimension[data.dimensionIndex].solution)
   }
 }
 

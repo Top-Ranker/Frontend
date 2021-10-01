@@ -42,9 +42,15 @@
                     <v-form :ref="'p' + item.id + 'd' + index">
                       <v-row>
                         <v-col md="8" sm="12" xs="12">
-                          <v-text-field v-model="solutions[item.id][index]" :rules='[rules.required,rules.commaSep]'
-                                        dense flat
-                                        outlined solo/>
+                          <v-text-field v-if="forceRerender" v-model="solutions[item.id][index]" :messages="message"
+                                        :rules='[rules.required,rules.commaSep]' dense
+                                        flat outlined solo>
+                            <template #message="{ message }">
+                              <span v-html="message"></span>
+                              <span :v-if="{lengthError}"></span>
+                            </template>
+                          </v-text-field>
+
                         </v-col>
                         <v-col md="4" sm="12" xs="12">
                           <v-btn class="test" elevation="1" outlined small solo
@@ -87,7 +93,8 @@ export default {
   data() {
     return {
       page: 1,
-      test: "",
+      lengthError: false,
+      forceRerender: true,
       pageCount: 2,
       itemsPerPage: 15,
       rules: {
@@ -355,21 +362,38 @@ export default {
           "solution1": "",
           "solution2": ""
         }
-      ]
+      ],
     }
   },
   computed: {
     problems() {
       return this.$store.getters.getAllProblems
+    },
+    message() {
+      if (this.lengthError) {
+        return "Input length does not match expected length"
+      } else
+        return null
     }
   },
   methods: {
     validate(ref) {
-      let problemId = ref.substring(ref.indexOf("p") + 1, ref.lastIndexOf("d"));
-
-      let dimensionIndex = ref.substring(ref.indexOf('d') + 1, ref.length)
-      // 20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
+      const problemId = ref.substring(ref.indexOf("p") + 1, ref.lastIndexOf("d"));
+      const dimensionIndex = ref.substring(ref.indexOf('d') + 1, ref.length);
       if (this.$refs[ref][0].validate()) {
+        const solution = this.solutions[problemId][dimensionIndex];
+        for (let i = 0; i < solution.length; i++) {
+          if (solution.split(",").length === this.problems[problemId].dimension[dimensionIndex].dimension) {
+            //CONTINUE
+            this.lengthError = false
+          } else {
+            //SHOW ERROR THAT INPUT LENGTH DOES NOT MATCH EXPECTED LENGTH
+            this.lengthError = true
+            console.log(this.lengthError)
+            return;
+          }
+        }
+        console.log('nhk')
         this.$store.commit('addSolution', {
           problemId,
           dimensionIndex,
@@ -399,5 +423,9 @@ export default {
 .test:hover {
   color: white;
   background-color: black !important;
+}
+
+.v-messages__message {
+  color: red
 }
 </style>
