@@ -6,15 +6,15 @@ WORKDIR /usr/share/nuxt-app
 RUN apk update && apk upgrade
 RUN apk add git 
 
-COPY . /usr/share/nuxt-app
+COPY ./src /usr/share/nuxt-app
 
 RUN npm install
-RUN npm run build
+RUN yarn build
 
 EXPOSE 3000
 
 ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]
 
