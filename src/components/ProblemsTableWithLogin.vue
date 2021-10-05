@@ -55,8 +55,8 @@
                   #body='{ items }'>
           <tbody>
           <tr
-            v-for='item in items'
-            :key='item.id'>
+            v-for='(item,pindex) in items'
+            :key='pindex'>
             <td>
               <nuxt-link :to='`/problems/${item.id}`'> {{ item.id }}</nuxt-link>
             </td>
@@ -67,19 +67,19 @@
             <td>{{ item.type }}</td>
 
             <td>
-              <div v-for='(dim,index) in item.dimension' :key='index' class='mb-1 font-weight-light'>
+              <div v-for='(dim,index) in item.dimensions' :key='index' class='mb-1 font-weight-light'>
                 <v-row class='mt-1 align-start'>
-                  <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim.dimension }}
+                  <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D= {{ dim }}
                   </v-col>
                   <v-col md='9' sm='12' xs='12'>
-                    <v-form :ref="'p' + item.id + 'd' + index">
+                    <v-form :ref="'p' + pindex + 'd' + index">
                       <v-row>
                         <v-col md='8' sm='12' xs='12'>
-                          <v-text-field v-if='forceRerender' v-model='solutions[item.id][index]' :messages='message'
+                          <v-text-field v-if='forceRerender' v-model='solutions[pindex][index]' :messages='message'
                                         :rules='[rules.required,rules.commaSep]' dense
                                         flat outlined solo>
                             <template #message='{ message }'>
-                              <span >{{ message }}</span>
+                              <span>{{ message }}</span>
                               <span v-if='lengthError'></span>
                             </template>
                           </v-text-field>
@@ -87,7 +87,7 @@
                         </v-col>
                         <v-col md='4' sm='12' xs='12'>
                           <v-btn class='test' elevation='1' outlined small solo
-                                 @click="validate('p'+item.id+'d'+index)">Solve
+                                 @click="validate('p'+pindex+'d'+index)">Solve
                           </v-btn>
                         </v-col>
                       </v-row>
@@ -118,11 +118,8 @@
 </template>
 
 <script>
-//import Button from "./Partials/Button";
-
 export default {
   name: 'ProblemsTableWithLogin',
-  /*  components: {Button},*/
   data() {
     return {
       page: 1,
@@ -137,254 +134,17 @@ export default {
       },
       solutions: [
         {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
-        },
-        {
-          'solution0': '',
-          'solution1': '',
-          'solution2': ''
+          solution0: '',
+          solution1: '',
+          solution2: ''
+        }, {
+          solution0: '',
+          solution1: '',
+          solution2: ''
+        }, {
+          solution0: '',
+          solution1: '',
+          solution2: ''
         }
       ]
     }
@@ -418,13 +178,16 @@ export default {
     }
   },
   methods: {
+    test() {
+
+    },
     validate(ref) {
       const problemId = ref.substring(ref.indexOf('p') + 1, ref.lastIndexOf('d'))
       const dimensionIndex = ref.substring(ref.indexOf('d') + 1, ref.length)
       if (this.$refs[ref][0].validate()) {
         const solution = this.solutions[problemId][dimensionIndex]
         for (let i = 0; i < solution.length; i++) {
-          if (solution.split(',').length === this.problems[problemId].dimension[dimensionIndex].dimension) {
+          if (solution.split(',').length === this.problems[problemId].dimensions[dimensionIndex]) {
             //CONTINUE
             this.lengthError = false
           } else {

@@ -15,19 +15,20 @@
             </div>
             <div class='ma-2'>
               <div>Owner :</div>
-              {{ problem.owner }}, {{ problem.country }}
+              contributor
+              {{ problem.contributor }}, {{ problem.country }}
             </div>
             <div class='ma-2'>
               <div>Type :</div>
-              Multi Model, Constraint, Multi Dimensional
+              {{ problem.type }}
             </div>
+            <!--            <div class='ma-2'>-->
+            <!--              <div>Submission Date :</div>-->
+            <!--              23 Dec 2017-->
+            <!--            </div>-->
             <div class='ma-2'>
-              <div>Submission Date :</div>
-              23 Dec 2017
-            </div>
-            <div class='ma-2'>
-              <div>Submissions :</div>
-              {{ problem.participationAll }}
+              <div>Total Submissions :</div>
+              100 {{ problem.participationAll }}
             </div>
           </v-card>
         </v-col>
@@ -92,18 +93,18 @@
               <th class='text-left'>Country</th>
               <th class='text-left'>Owner</th>
               <th class='text-left'>Problem Dimensions</th>
-              <th class='text-left'>Total Participation(Dimension Wise)</th>
+              <th class='text-left'>Your Ranking(Dimension Wise)</th>
               <th class='text-left'>Total Participation(Problem Wise)</th>
             </tr>
             </thead>
             <tbody>
             <tr>
               <td>{{ problem.country }}</td>
-              <td>{{ problem.owner }}</td>
+              <td>{{ problem.contributor }}</td>
               <td>
-                <div v-for='(dim,index) in problem.dimension' :key='index' class='mb-1 font-weight-light'>
+                <div v-for='(dim,index) in problem.dimensions' :key='dim' class='mb-1 font-weight-light'>
                   <v-row class='mt-1 align-start'>
-                    <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim.dimension }}
+                    <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim }}
                     </v-col>
                     <v-col md='9' sm='12' xs='12'>
                       <v-form ref='submission'>
@@ -114,7 +115,7 @@
                                           :rules='[rules.required,rules.commaSep]' dense
                                           flat outlined solo>
                               <template #message='{ message }'>
-                                <span >{{ message }}</span>
+                                <span>{{ message }}</span>
                                 <span v-if='lengthError'></span>
                               </template>
                             </v-text-field>
@@ -132,16 +133,19 @@
                 </div>
               </td>
               <td>
-                <div v-for='dim in problem.dimension' :key='dim.dimension'
+                <div v-for='dim in problem.dimensions' :key='dim.dimension'
                      class='mb-1 font-weight-light'>
-                  <p class='text-center mr-6'>
-                    35/{{ dim.participationD }}
+                  <p v-if='response' class='text-center mr-6'>
+                    {{ response.score }}
                     <br>
                     view all my submissions
                   </p>
+                  <p v-else class='text-center mr-6'>
+                    No Submissions yet
+                  </p>
                 </div>
               </td>
-              <td class='text-center'>{{ problem.participationAll }}<br>
+              <td class='text-center'>200{{ problem.participationAll }}<br>
                 <nuxt-link to='/'> View all rankers of the problem</nuxt-link>
               </td>
             </tr>
@@ -149,6 +153,17 @@
           </template>
         </v-simple-table>
       </v-row>
+    </v-card>
+    <v-card v-if='response' class='pa-3'>
+      <v-card-title>Submission:</v-card-title>
+      <div class='pa-3 font-weight-light text-body-1'>
+
+        <p> Score: {{ response.score }}</p>
+        <p>Solution Description {{ response.solution }}</p>
+        <p>Time:{{ response.time.substring }}</p>
+        <p>Input: {{ response.input }}</p>
+        <p>Dimension for problem {{ problem.name }} {{ response.dimension }}</p>
+      </div>
     </v-card>
   </v-container>
 </template>
@@ -200,6 +215,7 @@ export default {
         required: value => !!value || 'Required.',
         commaSep: value => !!/^\d+(,\d+)*$/.test(value) || 'Comma Seperated Integers only'
       },
+      response: null
     }
   },
   computed: {
@@ -223,11 +239,13 @@ export default {
     }
   },
   methods: {
-    validate(index) {
-      if (this.$refs.submission[index].validate()) {
+    async validate(index) {
+      if (!this.$auth.loggedIn) {
+        this.$router.push('/login')
+      } else if (this.$refs.submission[index].validate()) {
         const s = this.solution[index]
         for (let i = 0; i < s.length; i++) {
-          if (s.split(',').length === this.problem.dimension[index].dimension) {
+          if (s.split(',').length === this.problem.dimensions[index]) {
             //CONTINUE
             this.lengthError = false
           } else {
@@ -236,11 +254,15 @@ export default {
             return
           }
         }
-        this.$store.commit('addSolution', {
-          problemId: this.problem.id,
-          dimensionIndex: index,
-          'solution': this.solution[index]
-        })
+        const response = await this.$axios.$post('api/addsubmission',
+          {
+            question_id: this.problem.id,
+            dimension: this.problem.dimensions[index],
+            solution: 'BLAH BLAH',
+            input: this.solution[index]
+          }
+        )
+        this.response = response
       }
     }
   }

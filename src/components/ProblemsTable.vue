@@ -72,19 +72,19 @@
             <td>{{ item.type }}</td>
             <td>{{ item.country }}</td>
             <td>
-              <nuxt-link style='color: black' to='/'>{{ item.owner }}</nuxt-link>
+              <nuxt-link style='color: black' to='/'>{{ item.contributor }}</nuxt-link>
             </td>
             <td>
-              <div v-for='dim in item.dimension' :key='dim.dimension' class='mb-1 ma-2 font-weight-light'>
-                <span>for D={{ dim.dimension }}</span>
+              <div v-for='dim in item.dimensions' :key='dim' class='mb-1 ma-2 font-weight-light'>
+                <span>for D={{ dim }}</span>
               </div>
             </td>
             <td>
-              <div v-for='dim in item.dimension' :key='dim.dimension' class='mb-1 font-weight-light'>
-                <span>{{ dim.participationD }}</span>
+              <div v-for='dim in item.dimensions' :key='dim' class='mb-1 font-weight-light'>
+                <span>100</span>
               </div>
             </td>
-            <td>{{ item.participationAll }}<br>
+            <td>150<br>
               <span>
               <nuxt-link to='/'> View all rankers of the problem</nuxt-link>
 
