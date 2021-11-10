@@ -15,17 +15,18 @@
             </div>
             <div class='ma-2'>
               <div>Owner :</div>
-              contributor
-              {{ problem.contributor }}, {{ problem.country }}
+              {{ problem.name }},
+              <span v-if='problem.country===undefined'>Indiaaaa</span>
+              <span v-else>{{ problem.country + ' acha' }}</span>
             </div>
             <div class='ma-2'>
               <div>Type :</div>
               {{ problem.type }}
             </div>
-            <!--            <div class='ma-2'>-->
-            <!--              <div>Submission Date :</div>-->
-            <!--              23 Dec 2017-->
-            <!--            </div>-->
+            <div class='ma-2'>
+              <div>Submission Date :</div>
+              23 Dec 2017
+            </div>
             <div class='ma-2'>
               <div>Total Submissions :</div>
               100 {{ problem.participationAll }}
@@ -55,12 +56,12 @@
                 </thead>
                 <tbody>
                 <tr
-                  v-for='rank in ranks'
+                  v-for='rank in problem.dimensions'
                   :key='rank.dimension'>
-                  <td>For D ={{ rank.dimension }}</td>
-                  <td>{{ rank.first }}</td>
-                  <td>{{ rank.second }}</td>
-                  <td>{{ rank.third }}</td>
+                  <td>For D={{ rank.dimension }}</td>
+                  <td>first</td>
+                  <td>second</td>
+                  <td>third</td>
                 </tr>
                 </tbody>
               </template>
@@ -79,8 +80,10 @@
             <v-card-title>Download Fitness Function Code:
             </v-card-title>
             <v-col>
-              <v-select :items='lang' :value='language' color='black' outlined solo style='width:20%'></v-select>
-              <v-btn elevation='4' outlined x-large> Download</v-btn>
+              <div class='d-flex' style='width: 40%'>
+                <v-select :items='lang' :value='language' class='mr-12 pr-12' color='black' outlined solo></v-select>
+                <v-btn elevation='4' outlined x-large> Download</v-btn>
+              </div>
             </v-col>
           </v-card>
         </v-col>
@@ -90,8 +93,6 @@
           <template #default>
             <thead>
             <tr>
-              <th class='text-left'>Country</th>
-              <th class='text-left'>Owner</th>
               <th class='text-left'>Problem Dimensions</th>
               <th class='text-left'>Your Ranking(Dimension Wise)</th>
               <th class='text-left'>Total Participation(Problem Wise)</th>
@@ -99,35 +100,13 @@
             </thead>
             <tbody>
             <tr>
-              <td>{{ problem.country }}</td>
-              <td>{{ problem.contributor }}</td>
               <td>
-                <div v-for='(dim,index) in problem.dimensions' :key='dim' class='mb-1 font-weight-light'>
+                <div v-for='dim in problem.dimensions' :key='dim.dimension' class='mb-1 font-weight-light'>
                   <v-row class='mt-1 align-start'>
-                    <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim }}
+                    <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim.dimension }}
                     </v-col>
                     <v-col md='9' sm='12' xs='12'>
-                      <v-form ref='submission'>
-                        <v-row>
-                          <v-col md='8' sm='12' xs='12'>
-                            <v-text-field v-if='forceRerender' v-model='solution[index]'
-                                          :messages='message'
-                                          :rules='[rules.required,rules.commaSep]' dense
-                                          flat outlined solo>
-                              <template #message='{ message }'>
-                                <span>{{ message }}</span>
-                                <span v-if='lengthError'></span>
-                              </template>
-                            </v-text-field>
-
-                          </v-col>
-                          <v-col md='4' sm='12' xs='12'>
-                            <v-btn class='test' elevation='1' outlined small solo
-                                   @click='validate(index)'>Solve
-                            </v-btn>
-                          </v-col>
-                        </v-row>
-                      </v-form>
+                      <InputField :dimension='dim.dimension' :problemid='problem.id' @handleSolution='handleSolution' />
                     </v-col>
                   </v-row>
                 </div>
@@ -157,10 +136,9 @@
     <v-card v-if='response' class='pa-3'>
       <v-card-title>Submission:</v-card-title>
       <div class='pa-3 font-weight-light text-body-1'>
-
-        <p> Score: {{ response.score }}</p>
+        <p>Score: {{ response.score }}</p>
         <p>Solution Description {{ response.solution }}</p>
-        <p>Time:{{ response.time.substring }}</p>
+        <p>Time:{{ response.time }}</p>
         <p>Input: {{ response.input }}</p>
         <p>Dimension for problem {{ problem.name }} {{ response.dimension }}</p>
       </div>
@@ -169,9 +147,11 @@
 </template>
 
 <script>
+import InputField from '@/components/Partials/InputField'
 
 export default {
   name: 'ProblemCard',
+  components: { InputField },
   props: {
     problem: {
       type: Object,
@@ -182,32 +162,6 @@ export default {
   data() {
     return {
       forceRerender: true,
-      solution: [
-        null,
-        null,
-        null],
-      ranks: [
-        {
-          'dimension': 20,
-          'first': 'One',
-          'second': 'Two',
-          'third': 'Third',
-          'participationD': 40
-        },
-        {
-          'dimension': 50,
-          'first': 'One',
-          'second': 'Two',
-          'third': 'Third',
-          'participationD': 50
-        },
-        {
-          'dimension': 120,
-          'first': 'One',
-          'second': 'Two',
-          'third': 'Third',
-          'participationD': 60
-        }],
       lang: ['Python', 'Java', 'C++', 'C'],
       language: 'Python',
       lengthError: false,
@@ -230,7 +184,7 @@ export default {
         { text: 'Total Participations (Problem Wise)', sortable: false, value: 'participationAll' }
       ]
     },
-    message() {
+    messages() {
       if (this.lengthError) {
         return 'Input length does not match expected length'
       } else {
@@ -239,27 +193,18 @@ export default {
     }
   },
   methods: {
-    async validate(index) {
+    async handleSolution(data) {
       if (!this.$auth.loggedIn) {
         this.$router.push('/login')
-      } else if (this.$refs.submission[index].validate()) {
-        const s = this.solution[index]
-        for (let i = 0; i < s.length; i++) {
-          if (s.split(',').length === this.problem.dimensions[index]) {
-            //CONTINUE
-            this.lengthError = false
-          } else {
-            //SHOW ERROR THAT INPUT LENGTH DOES NOT MATCH EXPECTED LENGTH
-            this.lengthError = true
-            return
-          }
-        }
+      } else {
+        data.solution = 121212
+
         const response = await this.$axios.$post('api/addsubmission',
           {
-            question_id: this.problem.id,
-            dimension: this.problem.dimensions[index],
+            question_id: data.problemid,
+            dimension: data.dimension,
             solution: 'BLAH BLAH',
-            input: this.solution[index]
+            input: data.solution
           }
         )
         this.response = response

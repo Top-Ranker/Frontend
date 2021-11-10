@@ -14,17 +14,17 @@
     </v-btn>
     <v-btn class='mx-1'
            color='cyan lighten-3'
-           depressed>
+           depressed to='/contests'>
       Contests
     </v-btn>
     <v-btn class='mx-1'
            color='cyan lighten-3'
-           depressed>
+           depressed to='/leaderboard'>
       Leaderboard
     </v-btn>
     <v-btn class='mx-1'
            color='cyan lighten-3'
-           depressed>
+           depressed to='/contribute'>
       Contribute
     </v-btn>
     <v-btn v-if='!$auth.loggedIn'

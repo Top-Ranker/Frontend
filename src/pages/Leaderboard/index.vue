@@ -1,6 +1,7 @@
 <template>
-    <div class="Leaderboard">
-    </div>
+  <v-container>
+    <v-card-title>Coming Soon...</v-card-title>
+  </v-container>
 </template>
 
 <script>

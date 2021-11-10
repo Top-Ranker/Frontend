@@ -69,33 +69,33 @@
               <nuxt-link :to='`/problems/${item.id}`'> {{ item.name }}</nuxt-link>
             </td>
             <td>{{ item.difficulty }}</td>
-            <td>{{ item.type }}</td>
+            <td>{{ item.domain }}</td>
             <td>{{ item.country }}</td>
             <td>
-              <nuxt-link style='color: black' to='/'>{{ item.contributor }}</nuxt-link>
+              <nuxt-link style='color: black' to='/'>{{ item.name }}</nuxt-link>
+              <!--          Change this later after contributor is added in api    <nuxt-link style='color: black' to='/'>{{ item.contributor }}</nuxt-link>-->
             </td>
             <td>
               <div v-for='dim in item.dimensions' :key='dim' class='mb-1 ma-2 font-weight-light'>
-                <span>for D={{ dim }}</span>
+                <span>for D={{ dim.dimension }}</span>
               </div>
             </td>
             <td>
               <div v-for='dim in item.dimensions' :key='dim' class='mb-1 font-weight-light'>
-                <span>100</span>
+                <span>{{ dim.participationD }}</span>
               </div>
             </td>
             <td>150<br>
               <span>
               <nuxt-link to='/'> View all rankers of the problem</nuxt-link>
-
             </span>
             </td>
-            <!--            <td>
-                          <v-btn outlined
-                                 shaped
-                                 @click="$router.push('/login')">Solve!
-                          </v-btn>
-                        </td>-->
+            <td>
+              <v-btn outlined
+                     shaped
+                     @click="$router.push('/login')">Solve!
+              </v-btn>
+            </td>
           </tr>
           </tbody>
         </template>
@@ -115,7 +115,7 @@ export default {
       pageCount: 2,
       itemsPerPage: 15,
       loading: true,
-      search: null,
+      search: null
     }
   },
   computed: {
@@ -128,8 +128,8 @@ export default {
     type() {
       return ['Multi Model', 'Constraint', 'Multi Dimensional']
     },
-    headers(){
-      return [ { text: 'Problem #Id', align: 'start', sortable: true, value: 'id', width: '8%' },
+    headers() {
+      return [{ text: 'Problem #Id', align: 'start', sortable: true, value: 'id', width: '8%' },
         { text: 'Problem Name', value: 'name', width: '13%' },
         { text: 'Difficulty', value: 'difficulty', width: '8%' },
         { text: 'Type', value: 'type', width: '8%' },
