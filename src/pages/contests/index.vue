@@ -1,7 +1,7 @@
 <template>
-    <div class="contests">
-        <pre v-text="$attrs"/>
-    </div>
+   <v-container>
+     <v-card-title>Coming Soon...</v-card-title>
+   </v-container>
 </template>
 
 <script>

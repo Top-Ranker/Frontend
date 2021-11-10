@@ -608,14 +608,6 @@ export const actions = {
         }*/
     //Get all the problems sorted by EASY, MEDIUM ,HARD
     const problems = await this.$axios.$get('/api/problems', { data: { 'filter': 'Any' } })
-    /* const submissions = await this.$axios.$get('api/submissions/', {
-       data: {
-         'type': 'problem',
-         'questionid': 'CHECK'
-       }
-     })*/
-    // console.log(submissions)
-    console.log(problems[1].dimensions)
     commit('problems', problems)
   }
 }
@@ -625,10 +617,10 @@ export const actions = {
 export const mutations = {
   problems(state, data) {
     state.allProblems = data
-  },
-/*  addSolution(state, data) {
-    state.allProblems[data.problemId].dimension[data.dimensionIndex].solution = data.solution
-  }*/
+  }
+  /*  addSolution(state, data) {
+      state.allProblems[data.problemId].dimension[data.dimensionIndex].solution = data.solution
+    }*/
 }
 
 

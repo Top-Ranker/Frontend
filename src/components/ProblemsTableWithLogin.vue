@@ -8,7 +8,6 @@
       </v-pagination>
     </div>
     <v-card flat>
-
       <v-row>
         <v-col>
           <v-text-field
@@ -64,46 +63,24 @@
               <nuxt-link :to='`/problems/${item.id}`'> {{ item.name }}</nuxt-link>
             </td>
             <td>{{ item.difficulty }}</td>
-            <td>{{ item.type }}</td>
+            <td>{{ item.domain }}</td>
 
             <td>
               <div v-for='(dim,index) in item.dimensions' :key='index' class='mb-1 font-weight-light'>
                 <v-row class='mt-1 align-start'>
-                  <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D= {{ dim }}
+                  <v-col class='mt-1' cols='3' md='3' sm='8' xs='12'>for D={{ dim.dimension }}
                   </v-col>
                   <v-col md='9' sm='12' xs='12'>
-                    <v-form :ref="'p' + pindex + 'd' + index">
-                      <v-row>
-                        <v-col md='8' sm='12' xs='12'>
-                          <v-text-field v-if='forceRerender' v-model='solutions[pindex][index]' :messages='message'
-                                        :rules='[rules.required,rules.commaSep]' dense
-                                        flat outlined solo>
-                            <template #message='{ message }'>
-                              <span>{{ message }}</span>
-                              <span v-if='lengthError'></span>
-                            </template>
-                          </v-text-field>
-
-                        </v-col>
-                        <v-col md='4' sm='12' xs='12'>
-                          <v-btn class='test' elevation='1' outlined small solo
-                                 @click="validate('p'+pindex+'d'+index)">Solve
-                          </v-btn>
-                        </v-col>
-                      </v-row>
-                    </v-form>
+                    <InputField :dimension='dim.dimension' :problemid='item.name' @handleSolution='handleSolution' />
                   </v-col>
                 </v-row>
               </div>
             </td>
+
             <td>
-              <div v-for='dim in item.dimension' :key='dim.dimension'
-                   class='mb-1 font-weight-light'>
-                <p class='text-center mr-6'>
-                  35/{{ dim.participationD }}
-                  <br>
-                  view all my submissions
-                </p>
+              <div v-for='dim in item.dimensions' :key='dim' class='mb-1 font-weight-light'>
+                <p v-if='!dim.participationD' class='text-center mr-6'>No Participation</p>
+                <p v-else class='text-center mr-6'> Participation: {{ dim.participationD }}</p>
               </div>
             </td>
             <td class='text-center'>{{ item.participationAll }}<br>
@@ -118,35 +95,21 @@
 </template>
 
 <script>
+import InputField from '@/components/Partials/InputField'
+
 export default {
   name: 'ProblemsTableWithLogin',
+  components: { InputField },
   data() {
     return {
       page: 1,
-      lengthError: false,
-      forceRerender: true,
       pageCount: 2,
       search: null,
       itemsPerPage: 15,
       rules: {
         required: value => !!value || 'Required.',
         commaSep: value => !!/^\d+(,\d+)*$/.test(value) || 'Comma Seperated Integers only'
-      },
-      solutions: [
-        {
-          solution0: '',
-          solution1: '',
-          solution2: ''
-        }, {
-          solution0: '',
-          solution1: '',
-          solution2: ''
-        }, {
-          solution0: '',
-          solution1: '',
-          solution2: ''
-        }
-      ]
+      }
     }
   },
   computed: {
@@ -169,43 +132,35 @@ export default {
         { text: 'My Ranking (Problem Dimention Wise)', sortable: false, value: 'participationAll' },
         { text: 'Total Participations (Problem Wise)', sortable: false, value: 'participationAll' }
       ]
-    },
-    message() {
-      if (this.lengthError) {
-        return 'Input length does not match expected length'
-      } else
-        return null
     }
   },
   methods: {
-    test() {
-
-    },
-    validate(ref) {
-      const problemId = ref.substring(ref.indexOf('p') + 1, ref.lastIndexOf('d'))
-      const dimensionIndex = ref.substring(ref.indexOf('d') + 1, ref.length)
-      if (this.$refs[ref][0].validate()) {
-        const solution = this.solutions[problemId][dimensionIndex]
-        for (let i = 0; i < solution.length; i++) {
-          if (solution.split(',').length === this.problems[problemId].dimensions[dimensionIndex]) {
-            //CONTINUE
-            this.lengthError = false
-          } else {
-            //SHOW ERROR THAT INPUT LENGTH DOES NOT MATCH EXPECTED LENGTH
-            this.lengthError = true
-            return
-          }
-        }
-        this.$store.commit('addSolution', {
-          problemId,
-          dimensionIndex,
-          'solution': this.solutions[problemId][dimensionIndex]
-        })
-      }
+    handleSolution(data) {
+      console.log(data)
     }
   }
-
 }
+
+// {
+//   "id": "CHECK",
+//   "name": "Rahul",
+//   "difficulty": "Easy",
+//   "country": null,
+//   "domain": "dsfsdfsdsdfsdfsdf",
+//   "fitness_function": "a = int(input())\r\nprint(a)",
+//   "language": "Python",
+//   "dimension": [
+//   {
+//     "dimension": 1,
+//     "participationD": 10
+//   },
+//   {
+//     "dimension": 2,
+//     "participationD": 0
+//   }
+// ],
+//   "participationAll": 10
+// },
 </script>
 
 <style>
@@ -214,7 +169,6 @@ export default {
   text-decoration: underline;
   text-decoration-color: black;
   font-weight: bolder;
-
 }
 
 .test {
@@ -228,6 +182,6 @@ export default {
 }
 
 .v-messages__message {
-  color: red
+  color: red;
 }
 </style>

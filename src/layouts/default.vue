@@ -7,11 +7,7 @@
     <Footer/>
   </v-app>
 </template>
-
 <script>
-/*
-import Button from "../components/Partials/Button";
-*/
 import Footer from "../components/Partials/Footer";
 import AppBar from "../components/Partials/AppBar";
 
@@ -43,5 +39,4 @@ export default {
 .no-background-hover::before {
   background-color: transparent !important;
 }
-
 </style>
